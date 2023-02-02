@@ -8,12 +8,22 @@ $('#news-search').on("submit", function (event) {
     console.log(event.target);
     
     const searchTerm = $('#search-term').val();
-
+    const numArticles = $('#num-records').val();
     $.ajax({
         url: queryURL+searchTerm+apiKey,
         method: "GET"
       }).then(function (response) {
         console.log(response);
+        const results = response.response.docs;
+        // console.log(results[0]);
+        results.forEach(element => {
+            console.log(element);
+            const display = $('#display');
+            const articleDiv = $('<div>');
+            const artTitle = $('<h1>').text(element.headline.main);
+            articleDiv.append(artTitle);
+            display.append(articleDiv);
+        });
         
       })
     
